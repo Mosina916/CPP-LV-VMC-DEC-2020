@@ -3,7 +3,7 @@
 using namespace std;
 int main(){
 	int n,min=INT_MAX,max=INT_MIN;
-	float sum=0;
+	int sum=0;
 	cin>>n;
 	int i=1; //initialization
 
@@ -22,7 +22,7 @@ int main(){
 		sum=sum+no;
 		i=i+1; //updation
 	}
-	float mean=sum/n;
+	float mean=sum/n*1.0;
 	cout<<"minimum value among n numbers is :"<<min<<endl;
 	cout<<"maximum value among n numbers is :"<<max<<endl;
 	cout<<"mean of n numbers is :"<<mean<<endl;
