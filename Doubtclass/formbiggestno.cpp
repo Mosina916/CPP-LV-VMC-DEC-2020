@@ -31,7 +31,7 @@ int main(){
 				long long int no1=a*pow(10,digitcountb)+b;
 				long long int no2=b*pow(10,digitcounta)+a;
 				if(no1>no2){
-					swap(arr[j],arr[j+1]);
+					swap(a,b);
 				}
 
 			}
