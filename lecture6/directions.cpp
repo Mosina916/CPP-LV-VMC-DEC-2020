@@ -41,15 +41,38 @@ int main(){
 	}
 	//2nd quadrant
 	else if(y>=0&&x<=0){
-		
+		for (int i = 0; i < y; ++i)
+		{
+			cout<<'N';
+		}
+		for(int i=0;i<abs(x);i++){
+			cout<<'W';
+		}
 
 	}
 	//3rd quadrant
 	else if(x<=0&&y<=0){
+		for (int i = 0; i < abs(y); ++i)
+		{
+			cout<<'S';
+		}
+		for(int i=0;i<abs(x);i++){
+			cout<<'W';
+		}
+
 
 	}
 	//4th quadrant
 	else{
+		for(int i=0;i<x;i++){
+			cout<<'E';
+		}
+		for (int i = 0; i < abs(y); ++i)
+		{
+			cout<<'S';
+		}
+
+
 
 	}
 
