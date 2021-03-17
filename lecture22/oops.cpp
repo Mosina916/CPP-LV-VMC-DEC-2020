@@ -12,28 +12,68 @@ public: //class k bahar access  kar sakte hai
 	char *name;
 	int modelno;
 	int seats;
+	int cou;
+	const int tyres; //constant data members
+	static int co;
 
 	// // // default constructor override
-	car(){
+	car():tyres(4){
 
 		cout<<"In default constructor"<<endl;
 		cout<<"mosina"<<endl;
 		name=NULL;
+		co++;
 
 	}
 	// permetrized constructor
-	car(char *n,int s,int m,int p){
+	// car(char *n,int s,int m,int p):tyres(4),modelno(m),price(p),seats(s){
+		car(char *n,int seats,int modelno,int p):tyres(4){
 		cout<<"Inside perametrized constructor"<<endl;
 		name=new char[strlen(n)+1];
 		strcpy(name,n);
-		seats=s;
-		modelno=m;
+		this->seats=seats;
+		this->modelno=modelno;
 		price=p;
+		co++;
 
 	}
 
+	// copy constructor
+	car(car &x):tyres(4){ //in x we have car c
+
+		cout<<"in copy constructor"<<endl;
+		// name=x.name;
+		name=new char[strlen(x.name)+1];
+		strcpy(name,x.name);
+
+		price=x.price;
+		seats=x.seats;
+
+		modelno=x.modelno;
+		co++;
+
+	}
+
+	// copy assignment constructor
+	void operator=(car x){ //x-->B
+		cout<<"in copy Assignment constructor"<<endl;
+		// name=x.name;
+		name=new char[strlen(x.name)+1];
+		strcpy(name,x.name);
+
+		price=x.price;
+		seats=x.seats;
+
+		modelno=x.modelno;
+
+	}
+
+
+
+
+
 	//member functions
-	void printcar(){
+	void printcar()const{ //constant functions
 	cout<<"name of car is "<<name<<endl;
 	cout<<"price of car is "<<price<<endl;
 	cout<<"seats in car are "<<seats<<endl;
@@ -52,15 +92,32 @@ public: //class k bahar access  kar sakte hai
 
 	}
 	void setprice(int p){
-		price=p;
+		if(p<200){
+			price=200;
+		}
+		else{
+			price=p;
+
+		}
+		
 	}
-	int Getvalue(){
+	int Getvalue() const{
 		return price;
+	}
+
+// dustuctor
+	~car(){
+		cout<<"dustuctor for car "<<name<<" called "<<endl;
+		delete[] name;
+		co--;
+
 	}
 
 
 
 };
+
+int car::co=0;
 int main(){
 	// datatype variable-name;
 
@@ -78,6 +135,7 @@ int main(){
 	A.modelno=2020;
 	// A.price=50000;
 	A.setprice(65000); //setter
+	A.setprice(400); 
 	A.update("qwerty");
 	// cout<<"price of car is "<<A.price<<endl;
 
@@ -85,7 +143,8 @@ int main(){
 	// cout<<"price of car is "<<A.Getvalue()<<endl;
 	// cout<<"seats in car are "<<A.seats<<endl;
 	// cout<<"modelno of car is "<<A.modelno<<endl;
-	// A.printcar();
+	A.printcar();
+	cout<<"No of tyres "<<A.tyres<<endl;
 
 
 cout<<endl<<endl;
@@ -96,33 +155,68 @@ cout<<endl<<endl;
 	B.update("Audi");
 
 	
-	B.seats=4;
-	B.modelno=2010;
-	// B.price=30000;
-	B.setprice(30000);
+// 	B.seats=4;
+// 	B.modelno=2010;
+// 	// B.price=30000;
+// 	B.setprice(30000);
 
-	// cout<<"name of car is "<<B.name<<endl;
-	// cout<<"price of car is "<<B.price<<endl;
-	// cout<<"seats in car are "<<B.seats<<endl;
-	// cout<<"modelno of car is "<<B.modelno<<endl;
-	// B.printcar();
-
-
-		cout<<"price of car is "<<B.Getvalue()<<endl;
+// 	// cout<<"name of car is "<<B.name<<endl;
+// 	// cout<<"price of car is "<<B.price<<endl;
+// 	// cout<<"seats in car are "<<B.seats<<endl;
+// 	// cout<<"modelno of car is "<<B.modelno<<endl;
+// 	B.printcar();
 
 
-	car C("duster",8,2021,600000);
+// 		cout<<"price of car is "<<B.Getvalue()<<endl;
 
-cout<<endl<<endl;
-	// cout<<"name of car is "<<C.name<<endl;
-	// cout<<"price of car is "<<C.price<<endl;
-	// cout<<"seats in car are "<<C.seats<<endl;
-	// cout<<"modelno of car is "<<C.modelno<<endl;
+
+// 	car C("duster",8,2021,600000);
+
+// cout<<endl<<endl;
+// 	// cout<<"name of car is "<<C.name<<endl;
+// 	// cout<<"price of car is "<<C.price<<endl;
+// 	// cout<<"seats in car are "<<C.seats<<endl;
+// 	// cout<<"modelno of car is "<<C.modelno<<endl;
 
 // C.printcar();
 
 
-// getters and setters
+// // getters and setters
+
+car D=C; //car D(C) constructor call-->copy constructor
+
+// D.name[0]='M';
+// D.printcar();
+
+
+// // deep and shallow copy
+
+// D.name[0]='M';
+
+// cout<<endl<<endl;
+// C.printcar();
+
+// cout<<endl<<endl;
+// D.printcar();
+
+// // copy assignment constructor
+
+car E;
+E=A; //operator overoading
+
+// cout<<"car e deatails are"<<endl;
+
+// E.name[0]='u';
+E.printcar();
+car U=E;
+cout<<"total count of cars"<<endl;
+cout<<car::co<<endl;
+
+
+
+
+
+
 
 
 
