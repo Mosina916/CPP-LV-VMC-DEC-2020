@@ -224,7 +224,128 @@ void reversell(node*&head){
 
 }
 
+// 2 3 5 -->a
+// 1 4 6 7 -->b
+// 2 3 4 5 6 7
+node* merge(node*a,node*b){
 
+	// base case
+
+	if(a==NULL){
+		return b;
+	}
+	if(b==NULL){
+		return a;
+	}
+
+
+
+	 //recursion
+
+
+	node*newhead;
+	if(a->data<b->data){
+		newhead=a;
+		node*c=merge(a->next,b);
+		newhead->next=c;
+
+
+	}
+	else{
+		newhead=b;
+		node*d=merge(a,b->next);
+		newhead->next=d;
+
+
+	}
+	return newhead;
+}
+
+
+node* mergersort(node*head){
+
+	//recursive case
+	if(head==NULL||head->next==NULL){
+		return head;
+
+	}
+
+	//1 divide
+	node*m=mid(head);
+	node*b=head;
+	node*c=m->next;
+	m->next=NULL;
+
+
+	// 2 sort
+	b=mergersort(b);
+	c=mergersort(c);
+
+
+	// merge
+	node*fhead=merge(b,c);
+	return fhead;
+}
+
+
+bool iscyclic(node*head){
+	node*fast=head;
+	node*slow=head;
+	while(fast!=NULL&&fast->next!=NULL){ //linear
+		fast=fast->next->next;
+		slow=slow->next;
+		if(fast==slow){
+			return true;
+
+		}
+
+	}
+	return false;
+}
+
+
+void createcycle(node*head){
+	node*temp=head;
+	while(temp->next!=NULL){
+		temp=temp->next;
+	}
+	temp->next=head->next->next;
+}
+
+// void createcycle(node*head,node*&tail){
+
+// 	tail->next=head->next->next;
+// }
+
+
+void breakcycle(node*head){
+	node*fast=head;
+	node*slow=head;
+	while(fast!=NULL&&fast->next!=NULL){ //linear
+		fast=fast->next->next;
+		slow=slow->next;
+		if(fast==slow){
+			break;
+
+		}
+
+	}
+	
+	node*prev=head;
+	while(prev->next!=fast){
+		prev=prev->next;
+	}
+	slow=head;
+	while(slow!=fast){
+		prev=fast;
+		fast=fast->next;
+		slow=slow->next;
+	}
+	prev->next=NULL;
+
+
+
+}
 
 
 
@@ -242,29 +363,29 @@ int main(){
 		// cout<<n1.data<<" "<<n1.next->data<<endl;
 
 	node*head=NULL,*tail=NULL; //NULL
-	insertatfront(head,tail,1); //1
-	insertatfront(head,tail,20);// 20->1
-	insertatfront(head,tail,3);//3->20->1
-	insertatfront(head,tail,4);//4->3->20->1
-	insertatfront(head,tail,5);//5->4->3->20->1
-
-	printll(head);
 	// insertatfront(head,tail,1); //1
-	// insertatfront(head,tail,2);// 20->1
+	// insertatfront(head,tail,20);// 20->1
 	// insertatfront(head,tail,3);//3->20->1
 	// insertatfront(head,tail,4);//4->3->20->1
 	// insertatfront(head,tail,5);//5->4->3->20->1
+
 	// printll(head);
-	insertattail(head,tail,6);//5->4->3->20->1->6
-	insertattail(head,tail,7);//5->4->3->20->1->6->7
-	insertattail(head,tail,8);//5->4->3->20->1->6->7->8
-	printll(head);
+	// // insertatfront(head,tail,1); //1
+	// // insertatfront(head,tail,2);// 20->1
+	// // insertatfront(head,tail,3);//3->20->1
+	// // insertatfront(head,tail,4);//4->3->20->1
+	// // insertatfront(head,tail,5);//5->4->3->20->1
+	// // printll(head);
+	// insertattail(head,tail,6);//5->4->3->20->1->6
+	// insertattail(head,tail,7);//5->4->3->20->1->6->7
+	// insertattail(head,tail,8);//5->4->3->20->1->6->7->8
+	// printll(head);
 
 
-	deleteatanyposition(head,tail,4);
+	// deleteatanyposition(head,tail,4);
 
-	insertattail(head,tail,40);
-	printll(head);///5->4->3->20->6->7->8->40
+	// insertattail(head,tail,40);
+	// printll(head);///5->4->3->20->6->7->8->40
 
 	// node*x=searchiteratively(head,tail,9);
 	// if(x==NULL){
@@ -283,19 +404,19 @@ int main(){
 	// }
 
 
-	node*m=mid(head);
-	if(m==NULL){
-		cout<<"mid not present  "<<endl;
-	}
-	else{
-		cout<<"value of node at mid is "<<m->data<<endl;
-	}
+	// node*m=mid(head);
+	// if(m==NULL){
+	// 	cout<<"mid not present  "<<endl;
+	// }
+	// else{
+	// 	cout<<"value of node at mid is "<<m->data<<endl;
+	// }
 
 
-	reversell(head);
-	cout<<"ll after reverse"<<endl;
+	// reversell(head);
+	// cout<<"ll after reverse"<<endl;
 
-	printll(head);
+	// printll(head);
 
 
 
@@ -314,6 +435,75 @@ int main(){
 
 	// deleteatend(head,tail);
 	// printll(head);//2->1->6->7
+
+
+
+	// insertatfront(head,tail,6);
+	// insertatfront(head,tail,5);
+	// insertatfront(head,tail,4);
+	// insertatfront(head,tail,3);
+	// insertatfront(head,tail,2);
+	// insertatfront(head,tail,1);
+	// printll(head);
+
+
+// node*head2=NULL,*tail2=NULL;
+// 	insertatfront(head2,tail2,15);
+// 	insertatfront(head2,tail2,9);
+// 	insertatfront(head2,tail2,8);
+// 	printll(head2);
+
+
+// 	node*finalhead=merge(head,head2);
+// 	printll(finalhead);
+
+
+	// insertatfront(head,tail,5);
+	// insertatfront(head,tail,42);
+	// insertatfront(head,tail,90);
+	// insertatfront(head,tail,21);
+	// insertatfront(head,tail,1);
+	// printll(head);
+	// mergersort(head);
+	// printll(head);
+
+
+	insertattail(head,tail,1);
+	insertattail(head,tail,2);
+	insertattail(head,tail,3);
+	insertattail(head,tail,4);
+	insertattail(head,tail,5);
+	insertattail(head,tail,6);
+	insertattail(head,tail,7);
+	insertattail(head,tail,8);
+	printll(head);
+
+	if(iscyclic(head)){
+		cout<<"yes this is cyclic ll"<<endl;
+	}
+	else{
+		cout<<"this is not cyclic ll"<<endl;
+	}
+
+	createcycle(head);
+
+
+
+
+	if(iscyclic(head)){
+		cout<<"yes this is cyclic ll"<<endl;
+	}
+	else{
+		cout<<"this is not cyclic ll"<<endl;
+	}
+
+	breakcycle(head);
+
+	printll(head);
+
+	// printll(head);
+
+
 
 
 	return 0;
