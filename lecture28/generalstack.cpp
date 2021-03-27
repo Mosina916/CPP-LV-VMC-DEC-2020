@@ -1,7 +1,6 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-
 template<typename U>
 class Stack{
 
