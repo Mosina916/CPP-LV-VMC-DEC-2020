@@ -57,9 +57,27 @@ int bottomup(int n,int k){
 		}
 		dp[i]=ans;
 	}
+	for(int i=0;i<=n;i++){
+		cout<<dp[i]<<" ";
+	}
+	cout<<endl;
 	return dp[n];
 
 
+}
+int nstaircaseoptimized(int n,int k){
+	int dp[1000];
+	dp[0]=dp[1]=1;
+	for(int i=2;i<=n;i++){
+		if(i-1-k>=0){
+			dp[i]=2*dp[i-1]-dp[i-1-k];
+		}
+		else{
+			dp[i]=2*dp[i-1];
+
+		}
+	}
+	return dp[n];
 }
 
 int main(){
@@ -70,6 +88,7 @@ int main(){
 	cout<<nstaircase(n,k)<<endl;
 	cout<<nstaircasetopdown(n,k,dp)<<endl;
 	cout<<bottomup(n,k)<<endl;
+	cout<<nstaircaseoptimized(n,k)<<endl;
 
 	
 
